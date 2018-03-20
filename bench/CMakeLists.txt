@@ -1,6 +1,7 @@
 find_package(Threads REQUIRED)
 find_package(benchmark REQUIRED)
 
+find_path(BOOST_ALIGN_INCLUDE_DIR "boost/align/align.hpp")
 find_path(benchmark_INCLUDE_DIR "benchmark/benchmark.h")
 
 file(GLOB_RECURSE ALL_BENCH_CPP *.cpp)
@@ -21,6 +22,7 @@ foreach(ONE_BENCH_CPP ${ALL_BENCH_CPP})
 		${TARGET_NAME} 
 		PUBLIC
 		${benchmark_INCLUDE_DIR}
+		${BOOST_ALIGN_INCLUDE_DIR}
    )	
 
    target_link_libraries(${TARGET_NAME} 
