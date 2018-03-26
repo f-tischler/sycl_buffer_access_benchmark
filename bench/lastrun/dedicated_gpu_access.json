@@ -1,9 +1,0 @@
-{
-  "context": {
-    "date": "03/20/18 12:33:46",
-    "num_cpus": 8,
-    "mhz_per_cpu": 2494,
-    "cpu_scaling_enabled": false,
-    "library_build_type": "release"
-  },
-  "benchmarks": [
