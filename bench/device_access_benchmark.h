@@ -12,7 +12,7 @@
  * \param num_accessed_elements
  */
 template <class T>
-static void perform_device_access(benchmark::State& state, const cl::sycl::device& device, T& data, int num_accessed_elements) {
+static void perform_device_access(benchmark::State& state, const cl::sycl::device& device, T& data, const int64_t num_accessed_elements) {
 	using namespace cl::sycl;
 
 	for(auto _ : state) {
@@ -87,7 +87,6 @@ static void full_device_access_impl(benchmark::State& state, const cl::sycl::dev
 	aligned_vector<size_t> data(num_accessed_elements);
 
 	state.SetComplexityN(num_accessed_elements);
-	state.SetBytesProcessed(num_accessed_elements * sizeof(decltype(data)::value_type));
 
 	// always access the entire buffer
 	perform_device_access(state, device, data, num_accessed_elements);
@@ -108,7 +107,6 @@ static void subrange_device_access_impl(benchmark::State& state, const cl::sycl:
 	// increasing number of accessed elements
 	const auto num_accessed_elements = state.range(0);
 	state.SetComplexityN(num_accessed_elements);
-	state.SetBytesProcessed(num_accessed_elements * sizeof(decltype(data)::value_type));
 
 	perform_device_access(state, device, data, num_accessed_elements);
 }
