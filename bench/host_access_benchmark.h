@@ -3,6 +3,7 @@
 
 #include "access_benchmark.h"
 #include <SYCL/sycl.hpp>
+#include <iostream>
 
 /**
  * \brief benchmarks the access on the given data and range from the device
@@ -29,7 +30,6 @@ static void perform_host_access(benchmark::State& state, const cl::sycl::device&
 			state.ResumeTiming();
 
 			my_queue.submit([&](handler& cgh) {
-				// access the subrange started at 0 with size "num_accessed_elements"
 				auto ptr = buf.get_access<access::mode::read_write>(cgh);
 
 				/* We create an nd_range to describe the work space that the kernel is
@@ -66,7 +66,9 @@ static void perform_host_access(benchmark::State& state, const cl::sycl::device&
 				// validate result
 				for(auto i = 0; i < num_accessed_elements; ++i) {
 					if(data[i] == i) continue;
-					throw std::exception("validation failed");
+
+					std::cout << "validation failed";
+					exit(-1);
 				}
 			});
 

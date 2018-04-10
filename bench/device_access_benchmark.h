@@ -22,14 +22,14 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 			std::fill(data.begin(), data.end(), 0);
 
 			buffer<size_t, 1> buf(data.data(), range<1>(data.size()));
-			// buf.set_final_data(nullptr);
+			buf.set_final_data(nullptr);
 
 			queue my_queue(device);
 
 			state.ResumeTiming();
 
 			my_queue.submit([&](handler& cgh) {
-				// access the subrange started at 0 with size "num_accessed_elements"
+				// access the subrange starting at 0 with size "num_accessed_elements"
 				auto ptr = buf.get_access<access::mode::read_write>(cgh, range<1>(num_accessed_elements));
 
 				/* We create an nd_range to describe the work space that the kernel is

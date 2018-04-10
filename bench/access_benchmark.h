@@ -17,7 +17,7 @@ using aligned_vector = std::vector<T, boost::alignment::aligned_allocator<T, 64>
 	    ->Range(min_num_accessed, num_elements)                                                                                                                \
 	    ->UseRealTime()                                                                                                                                        \
 	    ->ReportAggregatesOnly()                                                                                                                               \
-	    ->Repetitions(3)                                                                                                                                       \
+	    ->Repetitions(10)                                                                                                                                      \
 	    ->Complexity()                                                                                                                                         \
 	    ->Unit(benchmark::TimeUnit::kMillisecond);
 
