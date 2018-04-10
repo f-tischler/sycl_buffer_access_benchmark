@@ -25,4 +25,4 @@ static void subrange_device_access(benchmark::State& state) {
 BUFFER_ACCESS_BENCHMARK(full_device_access)
 BUFFER_ACCESS_BENCHMARK(subrange_device_access)
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
