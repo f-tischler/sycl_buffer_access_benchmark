@@ -22,7 +22,7 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 			std::fill(data.begin(), data.end(), 0);
 
 			buffer<size_t, 1> buf(data.data(), range<1>(data.size()));
-			buf.set_final_data(nullptr);
+			buf.set_final_data(data.data());
 
 			queue my_queue(device);
 
@@ -65,6 +65,14 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 			my_queue.wait_and_throw();
 
 			state.PauseTiming();
+		}
+
+		// validate result
+		for(auto i = 0; i < num_accessed_elements; ++i) {
+			if(data[i] == i) continue;
+
+			std::cout << "validation failed";
+			exit(-1);
 		}
 
 		state.ResumeTiming();
