@@ -30,7 +30,7 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 
 			my_queue.submit([&](handler& cgh) {
 				// access the subrange started at 0 with size "num_accessed_elements"
-				auto ptr = buf.get_access<access::mode::read_write>(cgh, num_accessed_elements, id<1>(0));
+				auto ptr = buf.get_access<access::mode::read_write>(cgh, range<1>(num_accessed_elements));
 
 				/* We create an nd_range to describe the work space that the kernel is
 				 * to be executed across. Here we create a linear (one dimensional)
