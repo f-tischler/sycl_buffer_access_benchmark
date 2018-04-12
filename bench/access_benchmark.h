@@ -27,13 +27,10 @@ bool validate(benchmark::State& state, cl::sycl::buffer<T, 1>& buf, int64_t num_
 	auto host_access = buf.get_access<cl::sycl::access::mode::read>(cl::sycl::range<1>(num_accessed_elements));
 
 	// validate result
-	for(auto i = 0; i < num_accessed_elements; ++i) {
-		if(host_access[cl::sycl::id<1>(i)] == i) continue;
+	for(size_t i = 0; i < static_cast<size_t>(num_accessed_elements); ++i) {
+		if(host_access[i] == i) continue;
 
-		std::strstream str;
-		str << "validation failed (data[" << i << "] == " << host_access[cl::sycl::id<1>(i)] << ")";
-
-		state.SkipWithError(str.str());
+		state.SkipWithError("validation failed");
 		return false;
 	}
 
