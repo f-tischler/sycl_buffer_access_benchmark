@@ -18,19 +18,20 @@ static void perform_host_access(benchmark::State& state, const cl::sycl::device&
 
 	for(auto _ : state) {
 		{
+			// do not measure initialization and gpu work
 			state.PauseTiming();
 
-			std::fill(data.begin(), data.end(), 0);
-
-			buffer<size_t, 1> buf(data.data(), range<1>(data.size()));
-			buf.set_final_data(nullptr);
-
+			// reset data and create buffer/queue
+			auto buf = reset(data);
 			const queue my_queue(device);
 
+			// perform work on gpu
 			if(!submit_and_wait(my_queue, state, get_mutator<class host_access>(buf, num_accessed_elements))) continue;
 
+			// measure validation
 			state.ResumeTiming();
 
+			// validate result on host
 			if(!validate(state, buf, num_accessed_elements)) break;
 
 			state.PauseTiming();

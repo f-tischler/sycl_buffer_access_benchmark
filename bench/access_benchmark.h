@@ -66,4 +66,13 @@ bool submit_and_wait(cl::sycl::queue queue, benchmark::State& state, const T& cg
 	return wait(queue, state);
 }
 
+template <class T>
+auto reset(T& data) {
+	std::fill(data.begin(), data.end(), 0);
+	cl::sycl::buffer<typename T::value_type, 1> buf(data.data(), cl::sycl::range<1>(data.size()));
+	buf.set_final_data(nullptr);
+
+	return buf;
+}
+
 #endif // ACCESS_BENCHMARK_H

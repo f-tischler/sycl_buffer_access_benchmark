@@ -17,21 +17,23 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 
 	for(auto _ : state) {
 		{
+			// do not measure initialization
 			state.PauseTiming();
 
-			std::fill(data.begin(), data.end(), 0);
-
-			buffer<size_t, 1> buf(data.data(), range<1>(data.size()));
-			buf.set_final_data(nullptr);
-
+			// reset data and create buffer/queue
+			auto buf = reset(data);
 			const queue my_queue(device);
 
+			// measure gpu work
 			state.ResumeTiming();
 
+			// perform work on gpu
 			if(!submit_and_wait(my_queue, state, get_mutator<class host_access>(buf, num_accessed_elements))) break;
 
+			// do not measure validation
 			state.PauseTiming();
 
+			// validate results on host
 			if(!validate(state, buf, num_accessed_elements)) break;
 		}
 
