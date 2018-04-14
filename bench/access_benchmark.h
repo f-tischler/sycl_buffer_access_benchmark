@@ -18,12 +18,11 @@ using aligned_vector = std::vector<T, boost::alignment::aligned_allocator<T, 64>
 	    ->Range(min_num_accessed, num_elements)                                                                                                                \
 	    ->UseRealTime()                                                                                                                                        \
 	    ->ReportAggregatesOnly()                                                                                                                               \
-	    ->Repetitions(10)                                                                                                                                      \
+	    ->Repetitions(1)                                                                                                                                       \
 	    ->Complexity()                                                                                                                                         \
 	    ->Unit(benchmark::TimeUnit::kMillisecond);
 
-template <class T>
-bool validate(benchmark::State& state, cl::sycl::buffer<T, 1>& buf, int64_t num_accessed_elements) {
+inline bool validate(benchmark::State& state, cl::sycl::buffer<int64_t, 1>& buf, const int64_t num_accessed_elements) {
 	auto host_access = buf.get_access<cl::sycl::access::mode::read>(cl::sycl::range<1>(num_accessed_elements));
 
 	// validate result
@@ -36,8 +35,8 @@ bool validate(benchmark::State& state, cl::sycl::buffer<T, 1>& buf, int64_t num_
 
 	return true;
 }
-template <class KernelName, class T>
-auto get_mutator(cl::sycl::buffer<T, 1>& buf, int64_t num_accessed_elements) {
+template <class KernelName>
+auto get_mutator(cl::sycl::buffer<int64_t, 1>& buf, const int64_t num_accessed_elements) {
 	return [&buf, num_accessed_elements](cl::sycl::handler& cgh) {
 		auto ptr = buf.get_access<cl::sycl::access::mode::read_write>(cgh, cl::sycl::range<1>(num_accessed_elements));
 		auto my_range = cl::sycl::nd_range<1>(cl::sycl::range<1>(num_accessed_elements), cl::sycl::range<1>(64));

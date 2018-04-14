@@ -28,7 +28,7 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 			state.ResumeTiming();
 
 			// perform work on gpu
-			if(!submit_and_wait(my_queue, state, get_mutator<class host_access>(buf, num_accessed_elements))) break;
+			if(!submit_and_wait(my_queue, state, get_mutator<class device_access>(buf, num_accessed_elements))) break;
 
 			// do not measure validation
 			state.PauseTiming();
@@ -54,7 +54,7 @@ static void full_device_access_impl(benchmark::State& state, const cl::sycl::dev
 	const auto num_accessed_elements = state.range(0);
 
 	// increasing number of elements
-	aligned_vector<size_t> data(num_accessed_elements);
+	aligned_vector<int64_t> data(num_accessed_elements);
 
 	state.SetComplexityN(num_accessed_elements);
 
@@ -72,7 +72,7 @@ static void full_device_access_impl(benchmark::State& state, const cl::sycl::dev
  */
 static void subrange_device_access_impl(benchmark::State& state, const cl::sycl::device& device) {
 	// fixed number of elements
-	aligned_vector<size_t> data(num_elements);
+	aligned_vector<int64_t> data(num_elements);
 
 	// increasing number of accessed elements
 	const auto num_accessed_elements = state.range(0);
