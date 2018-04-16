@@ -8,7 +8,14 @@
 
 static cl::sycl::device select_device() {
 	try {
-		static auto device = dedicated_gpu_selector().select_device();
+		static auto device = []() {
+			auto d = dedicated_gpu_selector().select_device();
+			std::cout << std::endl;
+			std::cout << "using " << d.get_info<cl::sycl::info::device::name>() << std::endl;
+			std::cout << std::endl;
+			return d;
+		}();
+
 		return device;
 	} catch(...) {
 		std::cout << "no (compatible) dedicated gpu found" << std::endl;
