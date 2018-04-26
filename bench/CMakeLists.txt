@@ -1,9 +1,3 @@
-find_package(Threads REQUIRED)
-find_package(benchmark REQUIRED)
-
-find_path(BOOST_ALIGN_INCLUDE_DIR "boost/align/align.hpp")
-find_path(benchmark_INCLUDE_DIR "benchmark/benchmark.h")
-
 file(GLOB_RECURSE ALL_BENCH_CPP *.cpp)
  
 foreach(ONE_BENCH_CPP ${ALL_BENCH_CPP})
@@ -27,7 +21,7 @@ foreach(ONE_BENCH_CPP ${ALL_BENCH_CPP})
 
    target_link_libraries(${TARGET_NAME} 
 	PRIVATE
-		benchmark::benchmark
+		benchmark
 		${CMAKE_THREAD_LIBS_INIT})
 
 	add_sycl_to_target(

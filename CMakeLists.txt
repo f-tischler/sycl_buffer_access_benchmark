@@ -9,6 +9,11 @@ set(CMAKE_MODULE_PATH
 find_package(ComputeCpp REQUIRED)
 
 include(CTest)
-enable_testing(true)
+include(ConfigGBench)
 
+find_package(Threads REQUIRED)
+find_path(BOOST_ALIGN_INCLUDE_DIR "boost/align/align.hpp")
+
+enable_testing(true)
+ 
 add_subdirectory(${PROJECT_SOURCE_DIR}/bench/)
