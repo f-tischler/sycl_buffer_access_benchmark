@@ -8,12 +8,13 @@
 constexpr auto min_num_accessed = 1 << 25;
 constexpr auto num_elements = 1 << 28;
 constexpr auto multiplier = 2;
+constexpr auto repetitions = 1;
 
 template <class T>
 using aligned_vector = std::vector<T, boost::alignment::aligned_allocator<T, 64>>;
 
-#define BUFFER_ACCESS_BENCHMARK(f)                                                                                                                             \
-	BENCHMARK(f)                                                                                                                                               \
+#define BUFFER_ACCESS_BENCHMARK(f, t)                                                                                                                          \
+	BENCHMARK_TEMPLATE(f, t)                                                                                                                                   \
 	    ->RangeMultiplier(multiplier)                                                                                                                          \
 	    ->Range(min_num_accessed, num_elements)                                                                                                                \
 	    ->UseRealTime()                                                                                                                                        \
@@ -38,7 +39,7 @@ inline bool validate(benchmark::State& state, cl::sycl::buffer<int64_t, 1>& buf,
 template <class KernelName>
 auto get_mutator(cl::sycl::buffer<int64_t, 1>& buf, const int64_t num_accessed_elements) {
 	return [&buf, num_accessed_elements](cl::sycl::handler& cgh) {
-		auto ptr = buf.get_access<cl::sycl::access::mode::read_write>(cgh, cl::sycl::range<1>(num_accessed_elements));
+		const auto ptr = buf.get_access<cl::sycl::access::mode::read_write>(cgh, cl::sycl::range<1>(num_accessed_elements));
 		auto my_range = cl::sycl::nd_range<1>(cl::sycl::range<1>(num_accessed_elements), cl::sycl::range<1>(64));
 
 		// data[i] = i

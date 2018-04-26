@@ -20,6 +20,8 @@ class integrated_gpu_selector : public cl::sycl::device_selector {
 		return device.get_info<device::host_unified_memory>() == true && device.get_info<device::device_type>() == device_type::gpu
 		       && celerity::working_device_selector::is_supported(device);
 	}
+
+	static constexpr auto error_message = "no (compatible) integrated gpu found";
 };
 
 
