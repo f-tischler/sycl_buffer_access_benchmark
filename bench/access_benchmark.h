@@ -6,7 +6,6 @@
 #include <SYCL/queue.h>
 #include <benchmark/benchmark.h>
 #include <boost/align/aligned_allocator.hpp>
-
 constexpr auto min_num_accessed = 1 << 25;
 constexpr auto num_elements = 1 << 28;
 constexpr auto multiplier = 2;
@@ -17,15 +16,6 @@ constexpr auto repetitions = 1;
 template <class T>
 using aligned_vector = std::vector<T, boost::alignment::aligned_allocator<T, 64>>;
 
-#define BUFFER_ACCESS_BENCHMARK(f, t)                                                                                                                          \
-	BENCHMARK_TEMPLATE(f, t)                                                                                                                                   \
-	    ->RangeMultiplier(multiplier)                                                                                                                          \
-	    ->Range(min_num_accessed, num_elements)                                                                                                                \
-	    ->UseRealTime()                                                                                                                                        \
-	    ->ReportAggregatesOnly()                                                                                                                               \
-	    ->Repetitions(1)                                                                                                                                       \
-	    ->Complexity()                                                                                                                                         \
-	    ->Unit(benchmark::TimeUnit::kMillisecond);
 class async_error_handler {
   public:
 	void operator()(const cl::sycl::exception_list list) {

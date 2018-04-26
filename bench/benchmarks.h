@@ -24,23 +24,40 @@ static class cl::sycl::device select_device(const Selector& s) {
 }
 
 template <class DeviceSelector>
-static void full_host_from_device_access(benchmark::State& state) {
+static void full_host_from_device(benchmark::State& state) {
 	full_device_access_impl(state, select_device(DeviceSelector()));
 }
 
 template <class DeviceSelector>
-static void subr_host_from_device_access(benchmark::State& state) {
+static void subr_host_from_device(benchmark::State& state) {
 	subrange_device_access_impl(state, select_device(DeviceSelector()));
 }
 
 template <class DeviceSelector>
-static void full_device_from_host_access(benchmark::State& state) {
+static void full_device_from_host(benchmark::State& state) {
 	full_host_access_impl(state, select_device(DeviceSelector()));
 }
 
 template <class DeviceSelector>
-static void subr_device_from_host_access(benchmark::State& state) {
+static void subr_device_from_host(benchmark::State& state) {
 	subrange_host_access_impl(state, select_device(DeviceSelector()));
 }
+
+#define BUFFER_ACCESS_BENCHMARK(f, t)                                                                                                                          \
+	BENCHMARK_TEMPLATE(f, t)                                                                                                                                   \
+	    ->RangeMultiplier(multiplier)                                                                                                                          \
+	    ->Range(min_num_accessed, num_elements)                                                                                                                \
+	    ->UseRealTime()                                                                                                                                        \
+	    ->ReportAggregatesOnly()                                                                                                                               \
+	    ->Repetitions(repetitions)                                                                                                                             \
+	    ->Complexity()                                                                                                                                         \
+	    ->Unit(benchmark::TimeUnit::kMillisecond);
+
+#define BUFFER_ACCESS_BENCHMARKS(t)                                                                                                                            \
+	BUFFER_ACCESS_BENCHMARK(subr_host_from_device, t)                                                                                                          \
+	BUFFER_ACCESS_BENCHMARK(subr_device_from_host, t)                                                                                                          \
+	BUFFER_ACCESS_BENCHMARK(full_host_from_device, t)                                                                                                          \
+	BUFFER_ACCESS_BENCHMARK(full_device_from_host, t)
+
 
 #endif // BENCHMARKS_H
