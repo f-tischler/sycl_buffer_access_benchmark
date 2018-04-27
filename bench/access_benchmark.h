@@ -5,7 +5,6 @@
 #include <SYCL/buffer.h>
 #include <SYCL/queue.h>
 #include <benchmark/benchmark.h>
-#include <boost/align/aligned_allocator.hpp>
 #include <iostream>
 #include <vector>
 
@@ -13,9 +12,6 @@ constexpr auto min_num_accessed = 1 << 21;
 constexpr auto num_elements = 1 << 25;
 constexpr auto multiplier = 2;
 constexpr auto repetitions = 10;
-
-template <class T>
-using aligned_vector = std::vector<T, boost::alignment::aligned_allocator<T, 64>>;
 
 class async_error_handler {
   public:

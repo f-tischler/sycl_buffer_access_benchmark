@@ -17,14 +17,6 @@
           "value": "${env.COMPUTECPP_ROOT_DIR}"
         },
         {
-          "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "${env.VCPKG_ROOT_DIR}\\scripts\\buildsystems\\vcpkg.cmake"
-        },
-        {
-          "name": "VCPKG_TARGET_TRIPLET",
-          "value": "x64-windows"
-        },
-        {
           "name": "CMAKE_GENERATOR_PLATFORM",
           "value": "x64"
         },
@@ -48,14 +40,6 @@
         {
           "name": "COMPUTECPP_PACKAGE_ROOT_DIR",
           "value": "${env.COMPUTECPP_ROOT_DIR}"
-        },
-        {
-          "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "${env.VCPKG_ROOT_DIR}\\scripts\\buildsystems\\vcpkg.cmake"
-        },
-        {
-          "name": "VCPKG_TARGET_TRIPLET",
-          "value": "x64-windows"
         },
         {
           "name": "CMAKE_GENERATOR_PLATFORM",

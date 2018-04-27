@@ -7,12 +7,10 @@ set(CMAKE_MODULE_PATH
         ${PROJECT_SOURCE_DIR}/cmake)
 
 find_package(ComputeCpp REQUIRED)
+find_package(Threads REQUIRED)
 
 include(CTest)
 include(ConfigGBench)
-
-find_package(Threads REQUIRED)
-find_path(BOOST_ALIGN_INCLUDE_DIR "boost/align/align.hpp")
 
 enable_testing(true)
  

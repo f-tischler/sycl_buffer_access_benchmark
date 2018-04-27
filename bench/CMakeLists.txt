@@ -16,7 +16,6 @@ foreach(ONE_BENCH_CPP ${ALL_BENCH_CPP})
 		${TARGET_NAME} 
 		PUBLIC
 		${benchmark_INCLUDE_DIR}
-		${BOOST_ALIGN_INCLUDE_DIR}
    )	
 
    target_link_libraries(${TARGET_NAME} 

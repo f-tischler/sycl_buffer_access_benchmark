@@ -10,6 +10,7 @@ else()
 endif()
 
 set(BENCHMARK_ENABLE_TESTING OFF)
+set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
 
 include(DownloadProject)
 download_project(PROJ                googlebenchmark
