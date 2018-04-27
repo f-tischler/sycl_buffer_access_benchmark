@@ -5,7 +5,7 @@ This project aims to benchmark Codeplay's ComputeCpp implementation of SYCL in t
 ## Prerequisites
 
 CMake >= 2.8.12
-ComputeCpp >= 0.60
+ComputeCpp >= 0.61
 C++14 compliant compiler (when using MSVC make sure you have the v140 toolset installed)
 
 ## Generating build files
