@@ -23,7 +23,7 @@ static void perform_host_access(benchmark::State& state, const cl::sycl::device&
 
 			// reset data and create buffer/queue
 			auto buf = reset(data);
-			const queue my_queue(device);
+			const auto my_queue = create_queue(device);
 
 			// perform work on gpu
 			if(!submit_and_wait(my_queue, state, get_mutator<class host_access>(buf, num_accessed_elements))) continue;
