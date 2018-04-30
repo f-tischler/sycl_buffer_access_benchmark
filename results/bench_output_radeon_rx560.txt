@@ -1,0 +1,83 @@
+PS C:\dev\sycl_bench> .\dedicated_gpu_access.exe
+04/30/18 13:24:25
+Running C:\dev\sycl_bench\dedicated_gpu_access.exe
+Run on (16 X 3793 MHz CPU s)
+CPU Caches:
+  L1 Data 32K (x8)
+  L1 Instruction 65K (x8)
+  L2 Unified 524K (x8)
+  L3 Unified 8388K (x2)
+
+using Baffin
+
+--------------------------------------------------------------------------------------------------------------------------
+Benchmark                                                                                   Time           CPU Iterations
+--------------------------------------------------------------------------------------------------------------------------
+subr_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_mean            76 ms         28 ms          8
+subr_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_median          76 ms         27 ms          8
+subr_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_stddev           1 ms          2 ms          8
+subr_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_mean            77 ms         28 ms          9
+subr_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_median          76 ms         30 ms          9
+subr_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_stddev           1 ms          2 ms          9
+subr_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_mean            77 ms         28 ms          9
+subr_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_median          77 ms         28 ms          9
+subr_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_stddev           0 ms          2 ms          9
+subr_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_mean           78 ms         27 ms          9
+subr_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_median         78 ms         28 ms          9
+subr_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_stddev          1 ms          3 ms          9
+subr_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_mean           80 ms         26 ms          9
+subr_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_median         80 ms         26 ms          9
+subr_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_stddev          0 ms          2 ms          9
+subr_host_from_device<dedicated_gpu_selector>_BigO                                 77550880.74 (1) 27352430.56 (1)
+subr_host_from_device<dedicated_gpu_selector>_RMS                                           2 %          8 %
+subr_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_mean            77 ms          2 ms          9
+subr_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_median          77 ms          2 ms          9
+subr_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_stddev           0 ms          1 ms          9
+subr_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_mean            78 ms          2 ms          9
+subr_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_median          78 ms          3 ms          9
+subr_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_stddev           0 ms          2 ms          9
+subr_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_mean            81 ms          6 ms          9
+subr_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_median          81 ms          6 ms          9
+subr_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_stddev           0 ms          3 ms          9
+subr_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_mean           87 ms         10 ms          8
+subr_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_median         86 ms         10 ms          8
+subr_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_stddev          1 ms          2 ms          8
+subr_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_mean           97 ms         19 ms          7
+subr_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_median         96 ms         20 ms          7
+subr_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_stddev          0 ms          3 ms          7
+subr_device_from_host<dedicated_gpu_selector>_BigO                                       3.91 N       0.59 N
+subr_device_from_host<dedicated_gpu_selector>_RMS                                          60 %         27 %
+full_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_mean            31 ms         27 ms         22
+full_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_median          31 ms         26 ms         22
+full_host_from_device<dedicated_gpu_selector>/2097152/repeats:10/real_time_stddev           0 ms          2 ms         22
+full_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_mean            34 ms         26 ms         20
+full_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_median          34 ms         26 ms         20
+full_host_from_device<dedicated_gpu_selector>/4194304/repeats:10/real_time_stddev           0 ms          1 ms         20
+full_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_mean            41 ms         26 ms         17
+full_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_median          41 ms         27 ms         17
+full_host_from_device<dedicated_gpu_selector>/8388608/repeats:10/real_time_stddev           0 ms          1 ms         17
+full_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_mean           54 ms         27 ms         12
+full_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_median         54 ms         27 ms         12
+full_host_from_device<dedicated_gpu_selector>/16777216/repeats:10/real_time_stddev          0 ms          1 ms         12
+full_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_mean           80 ms         26 ms          7
+full_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_median         80 ms         25 ms          7
+full_host_from_device<dedicated_gpu_selector>/33554432/repeats:10/real_time_stddev          0 ms          3 ms          7
+full_host_from_device<dedicated_gpu_selector>_BigO                                 48116045.91 (1) 26473854.88 (1)
+full_host_from_device<dedicated_gpu_selector>_RMS                                          37 %          6 %
+full_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_mean             9 ms          2 ms         80
+full_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_median           9 ms          2 ms         80
+full_device_from_host<dedicated_gpu_selector>/2097152/repeats:10/real_time_stddev           0 ms          0 ms         80
+full_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_mean            14 ms          2 ms         50
+full_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_median          14 ms          3 ms         50
+full_device_from_host<dedicated_gpu_selector>/4194304/repeats:10/real_time_stddev           0 ms          1 ms         50
+full_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_mean            26 ms          5 ms         28
+full_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_median          26 ms          5 ms         28
+full_device_from_host<dedicated_gpu_selector>/8388608/repeats:10/real_time_stddev           0 ms          1 ms         28
+full_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_mean           49 ms         10 ms         15
+full_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_median         49 ms         10 ms         15
+full_device_from_host<dedicated_gpu_selector>/16777216/repeats:10/real_time_stddev          0 ms          1 ms         15
+full_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_mean           98 ms         20 ms          7
+full_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_median         97 ms         20 ms          7
+full_device_from_host<dedicated_gpu_selector>/33554432/repeats:10/real_time_stddev          2 ms          1 ms          7
+full_device_from_host<dedicated_gpu_selector>_BigO                                       2.93 N       0.59 N
+full_device_from_host<dedicated_gpu_selector>_RMS                                           4 %         12 %
