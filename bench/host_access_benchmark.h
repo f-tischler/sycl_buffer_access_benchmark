@@ -3,7 +3,6 @@
 
 #include "access_benchmark.h"
 #include <SYCL/sycl.hpp>
-#include <iostream>
 
 /**
  * \brief benchmarks the access on the given data and range from the device
@@ -23,7 +22,13 @@ static void perform_host_access(benchmark::State& state, const cl::sycl::device&
 
 			// reset data and create buffer/queue
 			auto my_queue = create_queue(device);
-			auto buf = reset(my_queue, data, num_accessed_elements);
+			auto buf = reset(data);
+
+			// copy data in
+			my_queue.submit([&](cl::sycl::handler& h) {
+				auto acc = buf.template get_access<access::mode::write>(cl::sycl::range<1>(static_cast<size_t>(num_accessed_elements)));
+				h.copy(data.data(), acc);
+			});
 
 			// perform work on gpu
 			if(!submit_and_wait(my_queue, state, get_mutator<class host_access>(buf, num_accessed_elements))) continue;

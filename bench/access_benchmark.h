@@ -98,16 +98,11 @@ bool submit_and_wait(cl::sycl::queue& queue, benchmark::State& state, const T& c
 }
 
 template <class T>
-auto reset(cl::sycl::queue& queue, T& data, const int64_t num_elements) {
+auto reset(T& data) {
 	std::fill(data.begin(), data.end(), 0);
 
 	cl::sycl::buffer<typename T::value_type, 1> buf(cl::sycl::range<1>(data.size()));
 	buf.set_final_data(nullptr);
-
-	queue.submit([&](cl::sycl::handler& h) {
-		auto acc = buf.get_access<cl::sycl::access::mode::write>(cl::sycl::range<1>{static_cast<size_t>(num_elements)});
-		h.copy(data.data(), acc);
-	});
 
 	// cl::sycl::buffer<typename T::value_type, 1> buf(data.data(), cl::sycl::range<1>(data.size()));
 	// buf.set_final_data(nullptr);
