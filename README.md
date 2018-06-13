@@ -39,8 +39,10 @@ The takeaway of this benchmark suite is that if the SYCL runtime is implemented 
 Benchmarks with the message "validation failed" most likely exceeded the maximum buffer size of the selected device. Try to reduce buffer sizes by modifying the values of `min_num_accessed` and
 `num_elements` in `access_benchmark.h`.
 
-## Results
+## Results 
 
-[AMD Radeon RX560](results/bench_output_radeon_rx560.txt) (Outdated, pre c463b24ccfb362dfceb7a568a3b55cf4fcc82914)
+### Pre c463b24ccfb362dfceb7a568a3b55cf4fcc82914
 
-[NVIDIA Tesla K20m](results/bench_output_tesla_k20m.txt) (Outdated, pre c463b24ccfb362dfceb7a568a3b55cf4fcc82914)
+[AMD Radeon RX560](results/bench_output_radeon_rx560.txt) 
+
+[NVIDIA Tesla K20m](results/bench_output_tesla_k20m.txt)
