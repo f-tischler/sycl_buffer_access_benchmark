@@ -21,8 +21,8 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 			state.PauseTiming();
 
 			// reset data and create buffer/queue
-			auto buf = reset(data);
-			const auto my_queue = create_queue(device);
+			auto my_queue = create_queue(device);
+			auto buf = reset(my_queue, data, num_accessed_elements);
 
 			// measure gpu work
 			state.ResumeTiming();

@@ -2,6 +2,7 @@
 #define ACCESS_BENCHMARK_H
 
 #include <SYCL/accessor.h>
+#include <SYCL/apis.h>
 #include <SYCL/buffer.h>
 #include <SYCL/queue.h>
 #include <benchmark/benchmark.h>
@@ -78,7 +79,7 @@ auto get_mutator(cl::sycl::buffer<int64_t, 1>& buf, const int64_t num_accessed_e
 	};
 }
 
-inline bool wait(cl::sycl::queue queue, benchmark::State& state) {
+inline bool wait(cl::sycl::queue& queue, benchmark::State& state) {
 	try {
 		queue.wait_and_throw();
 		handler.print_and_throw();
@@ -91,16 +92,25 @@ inline bool wait(cl::sycl::queue queue, benchmark::State& state) {
 }
 
 template <class T>
-bool submit_and_wait(cl::sycl::queue queue, benchmark::State& state, const T& cgf) {
+bool submit_and_wait(cl::sycl::queue& queue, benchmark::State& state, const T& cgf) {
 	queue.submit(cgf);
 	return wait(queue, state);
 }
 
 template <class T>
-auto reset(T& data) {
+auto reset(cl::sycl::queue& queue, T& data, const int64_t num_elements) {
 	std::fill(data.begin(), data.end(), 0);
-	cl::sycl::buffer<typename T::value_type, 1> buf(data.data(), cl::sycl::range<1>(data.size()));
+
+	cl::sycl::buffer<typename T::value_type, 1> buf(cl::sycl::range<1>(data.size()));
 	buf.set_final_data(nullptr);
+
+	queue.submit([&](cl::sycl::handler& h) {
+		auto acc = buf.get_access<cl::sycl::access::mode::write>(cl::sycl::range<1>{static_cast<size_t>(num_elements)});
+		h.copy(data.data(), acc);
+	});
+
+	// cl::sycl::buffer<typename T::value_type, 1> buf(data.data(), cl::sycl::range<1>(data.size()));
+	// buf.set_final_data(nullptr);
 
 	return buf;
 }
