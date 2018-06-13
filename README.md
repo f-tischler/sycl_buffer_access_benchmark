@@ -41,6 +41,6 @@ Benchmarks with the message "validation failed" most likely exceeded the maximum
 
 ## Results
 
-[AMD Radeon RX560](results/bench_output_radeon_rx560.txt)
+[AMD Radeon RX560 (Outdated, pre c463b24ccfb362dfceb7a568a3b55cf4fcc82914)](results/bench_output_radeon_rx560.txt)
 
-[NVIDIA Tesla K20m](results/bench_output_tesla_k20m.txt)
+[NVIDIA Tesla K20m (Outdated, pre c463b24ccfb362dfceb7a568a3b55cf4fcc82914)](results/bench_output_tesla_k20m.txt)
