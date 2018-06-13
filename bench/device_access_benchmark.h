@@ -26,7 +26,7 @@ static void perform_device_access(benchmark::State& state, const cl::sycl::devic
 
 			// copy data in
 			my_queue.submit([&](cl::sycl::handler& h) {
-				auto acc = buf.template get_access<access::mode::write>(cl::sycl::range<1>{static_cast<size_t>(num_accessed_elements)});
+				auto acc = buf.template get_access<access::mode::write>(h, cl::sycl::range<1>{static_cast<size_t>(num_accessed_elements)});
 				h.copy(data.data(), acc);
 			});
 
